@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+  {% if form.errors %}
+  <ul>
+    {% for error in form.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <form class="form-horizontal" role="form" action="" method="POST">
+    {% for field in form %}
+    {% if field.name == "csrf_token" %}
+    {{ field }}
+    {% else %}
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="{{field.name}}">{{field.label}}</label>
+      <div class="col-sm-10">
+        {{ field(class="form-control") }}
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
