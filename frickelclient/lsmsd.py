@@ -53,12 +53,13 @@ class lsmsd:
         return self._get_request("items/%i" % id)
 
     def create_item(self, name=None, description=None, maintainer=None,
-                    owner=None):
+                    owner=None, parent=None):
         data = {
             "Name": name,
             "Description": description,
             "Maintainer": maintainer,
-            "Owner": owner
+            "Owner": owner,
+            "Parent": parent
         }
 
         return self._post_request("items", data)
