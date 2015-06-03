@@ -3,6 +3,8 @@ from flask import render_template, request, redirect, url_for
 from frickelclient import app
 from frickelclient import lsmsd_api
 from frickelclient.forms import ItemForm
+import requests
+import json
 
 
 @app.route("/dinge")
@@ -65,3 +67,33 @@ def edit_item(id):
         form.container.data = str(item["Parent"])
 
         return render_template("edit_item.html", form=form)
+
+
+@app.route("/dinge/label/<int:id>", methods=["POST"])
+def print_label(id):
+    item = lsmsd_api.get_item(id)
+
+    if item is None:
+        return "NOT FOUND", 404
+
+    url = app.config["KLAUSKLEBER_AAS_URL"]
+    data = {"id": str(item['Id']),
+            "name": item['Name'],
+            "maintainer": item['Maintainer'],
+            "owner": item['Owner'],
+            "use_pol": item['Usage'],
+            "discard_pol": item['Discard']}
+
+    headers = {'Content-type': 'application/json',
+               'Accept': 'text/plain'}
+
+    try:
+        r = requests.post(url, data=json.dumps(data), headers=headers,
+                          timeout=5)
+    except requests.ConnectionError:
+        return "KLAUSKLEBER UNREACHABLE", 501
+
+    if r.status_code == 200:
+        return "OK", 200
+    else:
+        return "FAIL", 501

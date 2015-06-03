@@ -93,11 +93,26 @@
         {{ item['Images'] }}
       </td>
     </tr>
-
-
-
-
   </tbody>
 </table>
+
+<div id="label-status"></div>
+<button id="label-button" class="btn btn-default">Print Label</button>
+
+<script>
+  $("#label-button").bind("click", function(e) {
+    $.post("{{ url_for("print_label", id=item['Id'])}}", function(e) {
+      $("#label-status").html(
+        "<div class=\"alert alert-success\" role=\"alert\">"+
+        "Label printed successfully</div>"
+      );
+    }).fail(function(e){
+      $("#label-status").html(
+        "<div class=\"alert alert-danger\" role=\"alert\">"+
+        "Label printing failed: "+e.responseText+"</div>"
+      );
+    });
+  });
+</script>
 
 {% endblock %}
