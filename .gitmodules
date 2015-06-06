@@ -1,0 +1,3 @@
+[submodule "frickelclient/static"]
+	path = frickelclient/static
+	url = https://github.com/IronSummitMedia/startbootstrap-4-col-portfolio.git
