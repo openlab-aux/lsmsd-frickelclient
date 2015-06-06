@@ -32,7 +32,7 @@ def add_item():
                                      description=form.description.data,
                                      owner=form.owner.data,
                                      maintainer=form.maintainer.data,
-                                     parent=int(form.parent.data))
+                                     parent=int(form.container.data))
 
         return redirect(url_for("show_item", id=item['Id']))
     else:
