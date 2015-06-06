@@ -1,5 +1,5 @@
 SECRET_KEY = "lel"
-LSMSD_HOST = "http://localhost:8080/"
+LSMSD_HOST = "http://dinge.openlab.lan/"
 LSMSD_USER = "Inventur"
 LSMSD_PASS = "Inventur"
 KLAUSKLEBER_AAS_URL = "http://labtop.openlab.lan:2342/"
