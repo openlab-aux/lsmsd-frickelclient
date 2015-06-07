@@ -12,16 +12,12 @@ class ItemForm(Form):
                             validators=[Required()])
     owner = TextField("Owner")
     maintainer = TextField("Maintainer")
-    usage = SelectField("Usage")
-    dispose = TextField("Dispose")
-
+    usage = TextField("Usage")
+    discard = TextField("Discard")
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.container.choices = [("0", "None")]
         self.container.choices.extend(
             [(str(item['Id']), item['Name']) for item in lsmsd_api.get_items()]
-        )
-        self.usage.choices.extend(
-            [i.value for i in list(UsagePolicy)]
         )

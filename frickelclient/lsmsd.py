@@ -1,4 +1,3 @@
-from enum import Enum
 import json
 import requests
 from requests.auth import HTTPBasicAuth
@@ -10,10 +9,6 @@ class LsmsdError(Exception):
         self.data = data
         self.response = response
 
-class UsagePolicy(Enum):
-    ALLOW = "ALLOW"
-    ASK = "ASK"
-    DENY = "DENY"
 
 class lsmsd:
     def __init__(self, host, username, password):
@@ -58,7 +53,7 @@ class lsmsd:
         return self._get_request("items/%i" % id)
 
     def create_item(self, name=None, description=None, maintainer=None,
-                    owner=None, usage=None, dispose=None, parent=None):
+                    owner=None, usage=None, discard=None, parent=None):
         data = {
             "Name": name,
             "Description": description,
