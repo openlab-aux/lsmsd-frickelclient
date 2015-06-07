@@ -98,8 +98,12 @@
 
 <div id="label-status"></div>
 <button id="label-button" class="btn btn-default">Print Label</button>
+<a href="{{ url_for("edit_item", id=item['Id']) }}" role="button" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i> Edit Item</a>
+<button id="delete-button" class="btn btn-warning"><i class="glyphicon glyphicon-trash"></i> Delete Item</button>
 
 <script>
+  // // bind buttons
+  // bind "print label" button
   $("#label-button").bind("click", function(e) {
     $.post("{{ url_for("print_label", id=item['Id'])}}", function(e) {
       $("#label-status").html(
@@ -113,6 +117,19 @@
       );
     });
   });
+
+  // bind "delete item" button
+  $("#delete-button").bind("click", function(e) {
+    if(e.currentTarget.textContent != "Confirm") {
+      button = $("#delete-button");
+      button.html("Confirm");
+      button.removeClass("btn-warning");
+      button.addClass("btn-danger");
+    } else {
+      window.location.replace("{{ url_for("delete_item", id=item["Id"]) }}");
+    }
+  });
+
 </script>
 
 {% endblock %}
