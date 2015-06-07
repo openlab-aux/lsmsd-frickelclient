@@ -32,7 +32,9 @@ def add_item():
                                      description=form.description.data,
                                      owner=form.owner.data,
                                      maintainer=form.maintainer.data,
-                                     parent=int(form.container.data))
+                                     parent=int(form.container.data),
+                                     usage=form.usage.data,
+                                     discard=form.discard.data)
 
         return redirect(url_for("show_item", id=item['Id']))
     else:
@@ -50,21 +52,27 @@ def edit_item(id):
     item = lsmsd_api.get_item(id)
     form = ItemForm(request.form)
 
+    # POST
     if form.validate_on_submit():
         item["Name"] = form.name.data
         item["Description"] = form.description.data
         item["Owner"] = form.owner.data
         item["Maintainer"] = form.maintainer.data
         item["Parent"] = int(form.container.data)
+        item["Usage"] = form.usage.data
+        item["Discard"] = form.discard.data
 
         lsmsd_api.update_item(item)
         return redirect(url_for("show_item", id=item['Id']))
+    # GET
     else:
         form.name.data = item["Name"]
         form.description.data = item["Description"]
         form.maintainer.data = item["Maintainer"]
         form.owner.data = item["Owner"]
         form.container.data = str(item["Parent"])
+        form.usage.data = item["Usage"]
+        form.discard.data = item["Discard"]
 
         return render_template("edit_item.html", form=form)
 
