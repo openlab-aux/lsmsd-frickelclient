@@ -105,3 +105,17 @@ def print_label(id):
         return "OK", 200
     else:
         return "FAIL", 501
+
+
+@app.route("/dinge/search", methods=["POST"])
+def search_items():
+    all_items = lsmsd_api.get_items()
+    found_items = []
+    query = request.form['search']
+
+    for item in all_items:
+        if query in item["Name"] or query in item["Description"]:
+            found_items.append(item)
+
+    return render_template("list_items_search.html", items=found_items,
+                           query=query)
