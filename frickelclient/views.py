@@ -114,7 +114,8 @@ def search_items():
     query = request.form['search']
 
     for item in all_items:
-        if query in item["Name"] or query in item["Description"]:
+        if query.lower() in item["Name"].lower() or \
+           query.lower() in item["Description"].lower():
             found_items.append(item)
 
     return render_template("list_items_search.html", items=found_items,
