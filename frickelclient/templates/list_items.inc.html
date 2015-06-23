@@ -1,0 +1,36 @@
+        <!-- Projects Row -->
+        {% if items|length > 0 %}
+        {% for _ in range((items|length // 4) + 1) %}
+        {% set base_number = loop.index0 * 4 %}
+        <div class="row">
+            {% for i in range(4) %}
+                {% if ( ( base_number + i ) < items|length ) %}
+                    {% set item = items[base_number+i] %}
+                    <div class="col-md-3 portfolio-item clearfix">
+                        <a href="{{ url_for("show_item", id=item['Id']) }}">
+                          {% if item["Images"] != None %}
+                          <img style="width: 50px; height: 50px; margin-right: 10px;" class="pull-left img-responsive" src="{{ url_for("get_image", id=item["Images"][0]) }}" alt="">
+                          {% else %}
+                          <img style="margin-right: 10px;" class="pull-left img-responsive" src="http://placehold.it/50x50" alt="">
+                          {% endif %}
+                        </a>
+                        <p>
+                          <b>
+                            <a href="{{ url_for("show_item", id=items[base_number+i]['Id']) }}">
+                                {{ item['Name'] }}
+                            </a>
+                          </b>
+                        </p>
+                        <p>{{ item['Description'] }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-md-12 portfolio-item">
+          <p><b>Sorry :-(</b></p>
+          <p>Es sind noch keine Dinge eingetragen. <a href="{{ url_for("add_item") }}">Hier</a> kannst Du welche hinzufügen.</p>
+        </div>
+        {% endif %}
+

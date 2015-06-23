@@ -1,36 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-        <h3>Suchergebnisse für "{{ query }}"</h3>
 
-        <!-- Projects Row -->
-        {% if items|length > 0 %}
-        {% for _ in range((items|length // 4) + 1) %}
-        {% set base_number = loop.index0 * 4 %}
-        <div class="row">
-            {% for i in range(4) %}
-                {% if ( ( base_number + i ) < items|length ) %}
-                    <div class="col-md-3 portfolio-item clearfix">
-                        <a href="{{ url_for("show_item", id=items[base_number+i]['Id']) }}">
-                          <img style="margin-right: 10px;" class="pull-left img-responsive" src="http://placehold.it/50x50" alt="">
-                        </a>
-                        <p>
-                          <b>
-                            <a href="{{ url_for("show_item", id=items[base_number+i]['Id']) }}">
-                                {{ items[base_number+i]['Name'] }}
-                            </a>
-                          </b>
-                        </p>
-                        <p>{{ items[base_number+i]['Description'] }}</p>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        {% endfor %}
-        {% else %}
-        <div class="col-md-12 portfolio-item">
-          <p><b>Sorry :-(</b></p>
-          <p>Für die Suchanfrage "{{ query }}" wurden keine Ergebnisse gefunden.</p>
-        </div>
-        {% endif %}
+<h3>Suchergebnisse für "{{ query }}"</h3>
+
+{% include "list_items.inc.html" %}
 
 {% endblock content %}
