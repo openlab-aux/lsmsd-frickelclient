@@ -7,18 +7,19 @@
         <div class="row">
             {% for i in range(4) %}
                 {% if ( ( base_number + i ) < items|length ) %}
+                    {% set item = items[base_number+i] %}
                     <div class="col-md-3 portfolio-item clearfix">
-                        <a href="{{ url_for("show_item", id=items[base_number+i]['Id']) }}">
+                        <a href="{{ url_for("show_item", id=item['Id']) }}">
                           <img style="margin-right: 10px;" class="pull-left img-responsive" src="http://placehold.it/50x50" alt="">
                         </a>
                         <p>
                           <b>
                             <a href="{{ url_for("show_item", id=items[base_number+i]['Id']) }}">
-                                {{ items[base_number+i]['Name'] }}
+                                {{ item['Name'] }}
                             </a>
                           </b>
                         </p>
-                        <p>{{ items[base_number+i]['Description'] }}</p>
+                        <p>{{ item['Description'] }}</p>
                     </div>
                 {% endif %}
             {% endfor %}
