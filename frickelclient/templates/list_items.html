@@ -10,7 +10,11 @@
                     {% set item = items[base_number+i] %}
                     <div class="col-md-3 portfolio-item clearfix">
                         <a href="{{ url_for("show_item", id=item['Id']) }}">
+                          {% if item["Images"] != None %}
+                          <img style="width: 50px; height: 50px; margin-right: 10px;" class="pull-left img-responsive" src="{{ url_for("get_image", id=item["Images"][0]) }}" alt="">
+                          {% else %}
                           <img style="margin-right: 10px;" class="pull-left img-responsive" src="http://placehold.it/50x50" alt="">
+                          {% endif %}
                         </a>
                         <p>
                           <b>

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, Response
 
 from frickelclient import app
 from frickelclient import lsmsd_api
@@ -120,3 +120,9 @@ def search_items():
 
     return render_template("list_items_search.html", items=found_items,
                            query=query)
+
+
+@app.route("/images/<string:id>")
+def get_image(id):
+    mimetype, data = lsmsd_api.get_image(id)
+    return Response(data, mimetype=mimetype)

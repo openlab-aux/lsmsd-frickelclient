@@ -73,3 +73,11 @@ class lsmsd:
 
     def delete_item(self, id):
         self._delete_request("/items/{id}".format(id=id))
+
+    def get_image(self, id):
+        res = requests.get(self._host+"images/"+id)
+        res.encoding = "utf-8"
+        return (res.headers['content-type'], res.content)
+
+    def post_image(self, item_id, mimetype, content):
+        pass
